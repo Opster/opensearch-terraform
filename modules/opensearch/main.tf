@@ -1,7 +1,7 @@
 
 resource "aws_vpc" "opensearch_vpc" {
   count            = (var.create_vpc  == true ? 1 : 0)
-  cidr_block       = "10.0.0.0/16"
+  cidr_block       = var.cidr_block
 
   tags = {
     Name = "${var.cluster_name}-vpc"
