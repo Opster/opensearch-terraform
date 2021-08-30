@@ -9,7 +9,7 @@ module "opensearch-opster" {
   route53_zone = ""
   route53_domain = "dom.com"
   path_to_data = "/tmp/data"
-
+  cidr_block  = "10.0.0.0/16"
 }
 
 

@@ -90,3 +90,8 @@ variable "route53_domain" {
     type            = string
     description     = "your route53 zonde domain (dom.com)"
 }
+
+variable "cidr_block" {
+    type            = string
+    description     = "cidr block"
+}
