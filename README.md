@@ -2,14 +2,20 @@ Hello
 
 This Terraform module will create:
 5 ec2 instances with Opensearch installed and configured:
+
+
     3 data nodes
     1 master
     1 dashborad
-3 ebs on size 30o GB for every data node.
-5 route53 records
-OPTINAL:
-    vpc
-    security_group
+    3 ebs on size 30o GB for every data node.
+    5 route53 records
+    
+    
+    OPTINAL:
+        vpc
+        security_group
+    
+    
 if you wolud like that the moudle will create vpc and security_group please verify "create_vpc" var == true.
 
 To run this moudle you need route 53.
@@ -17,6 +23,8 @@ To run this moudle you need route 53.
 If you wolud like to add more nodes, notice that you need to add them also on 'conf_setup.sh' on opensearch.yml (discovery.seed_hosts) and on opensearch-dashborads.yml (opensearch.hosts) .
 
 steps to deploy :
+
+
     on /modules/opensearch/variables.tf :
         on 'variable "opensearch_node"' :
             insert your cluster detailes, you can add more nodes if you want, please keep the data and master nodes on t2.xlarge instance_type or larger.
@@ -52,15 +60,27 @@ To check your opensearch cluster run:
         }
 
 
+
+
 To reach the dashborad server:
+
+
     https://dashboard-opensearch.domain.com:5601
         opensearch.username: "admin"
         opensearch.password: "admin"
 
+
+
 To connect your hosts:
+
+
     sudo ssh -i key.pem centos@node1-opensearch.domain.com
 
+
+
 to delete all resources:
+
+
     terraform destroy
 
 
