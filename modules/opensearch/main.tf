@@ -10,6 +10,19 @@ resource "aws_vpc" "opensearch_vpc" {
   }
 }
 
+resource "aws_subnet" "opensearch_subnet" {
+  count            = (var.create_vpc  == true ? 1 : 0)
+  vpc_id            = aws_vpc.opensearch_vpc[count.index].id
+  cidr_block        = var.cidr_block
+  availability_zone = var.subnet_availability_zone
+
+  tags = {
+    Name = "${var.cluster_name}-subnet"
+    cluster = var.cluster_name
+
+  }
+}
+
 resource "aws_security_group" "opensearch_security_group" {
   count            = (var.create_vpc  == true ? 1 : 0)
   vpc_id           = aws_vpc.opensearch_vpc[count.index].id
@@ -77,8 +90,8 @@ resource  "aws_instance" "opensearch_cluster" {
   key_name               = var.key_name
   instance_type          = each.value.instance_type
   monitoring             = true
-  subnet_id              = (var.create_vpc  == true ? aws_security_group.opensearch_security_group[0].id : var.subnet_id)
-  vpc_security_group_ids = (var.create_vpc  == true ? [aws_vpc.opensearch_vpc[0].id] : var.vpc_id)
+  subnet_id              = (var.create_vpc  == true ? aws_subnet.opensearch_subnet[0].id : var.subnet_id)
+  vpc_security_group_ids = (var.create_vpc  == true ? [aws_security_group.opensearch_security_group[0].id] : var.sg_vpc_id)
   user_data              = data.template_file.conf_setup[each.key].rendered 
   ebs_block_device {
     device_name          = "/dev/sdb" 

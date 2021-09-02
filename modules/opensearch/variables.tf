@@ -65,9 +65,9 @@ variable "key_name" {
     description     = "Private key"
 }  
 
-variable "vpc_id" {
+variable "sg_vpc_id" {
     type            = list(string)
-    description     = "vcp id"
+    description     = "sg_vcp id"
 }  
 
 variable "subnet_id" {
@@ -94,4 +94,9 @@ variable "route53_domain" {
 variable "cidr_block" {
     type            = string
     description     = "cidr block"
+}
+
+variable "subnet_availability_zone" {
+    type            = string
+    description     = "subnet_availability_zone"
 }
