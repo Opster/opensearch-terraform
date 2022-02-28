@@ -6,7 +6,7 @@ This Terraform module will create:
 
     3 data nodes
     1 master
-    1 dashborad
+    1 dashboards
     3 ebs on size 30o GB for every data node.
     5 route53 records
     
@@ -16,11 +16,11 @@ This Terraform module will create:
         security_group
     
     
-if you wolud like that the moudle will create vpc and security_group please verify "create_vpc" var == true.
+if you would like that the module will create vpc and security_group please verify "create_vpc" var == true.
 
 To run this moudle you need route 53.
 
-If you wolud like to add more nodes, notice that you need to add them also on 'conf_setup.sh' on opensearch.yml (discovery.seed_hosts) and on opensearch-dashborads.yml (opensearch.hosts) .
+If you would like to add more nodes, notice that you need to add them also on `conf_setup.sh` on `opensearch.yml` (`discovery.seed_hosts`) and on `opensearch-dashboards.yml` (`opensearch.hosts`) .
 
 steps to deploy :
 
@@ -41,6 +41,8 @@ To check your opensearch cluster run:
     curl -XGET https://master-opensearch.domain.com:9200 -u 'admin:admin' --insecure
 
     your output should be something like this:
+
+```	
         {
         "name" : "master-opensearch.domain.com",
         "cluster_name" : "opensearch-cluster",
@@ -58,11 +60,11 @@ To check your opensearch cluster run:
         },
         "tagline" : "The OpenSearch Project: https://opensearch.org/"
         }
+```
 
 
 
-
-To reach the dashborad server:
+To reach the dashboards server:
 
 
     https://dashboard-opensearch.domain.com:5601
@@ -73,16 +75,16 @@ To reach the dashborad server:
 
 To connect your hosts:
 
-
+```
     sudo ssh -i key.pem centos@node1-opensearch.domain.com
-
+```
 
 
 to delete all resources:
 
-
+```
     terraform destroy
-
+```
 
 
 
